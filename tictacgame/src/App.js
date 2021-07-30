@@ -29,19 +29,26 @@ import './App.css';
 
 class Square extends React.Component{
 constructor(props){
-
 super(props);
+this.state= {x: ""};
 
 }
 
+change=()=>{
+  this.setState({x: "X"})
+      return(this.vall=this.state.x);// change the state of x using this.setState()funtion
+        
+    }
+
   render() {
-    const val=this.props.value;
+    this.val=this.props.value;
     return (
      
-      <button className="square" onClick={function a(){alert("You clicked") }}> 
-        {this.props.value}
+      <button className="square" onClick={this.change}>
+       {this.vall}
+       
         {/* TODO */}
-      </button>/*recieving prop object and onclick calling alert function*/
+      </button>/*recieving state object's property */
     );
   }
 }
