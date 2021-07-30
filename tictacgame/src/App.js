@@ -33,19 +33,14 @@ super(props);
 this.state= {x: ""};
 
 }
-
-change=()=>{
-  this.setState({x: "X"})
-      return(this.vall=this.state.x);// change the state of x using this.setState()funtion
-        
-    }
-
   render() {
     this.val=this.props.value;
+    this.click=this.props.onClick;
     return (
      
-      <button className="square" onClick={this.change}>
-       {this.vall}
+      <button name = ""className="square" 
+      onClick={this.click}>
+       {this.val}
        
         {/* TODO */}
       </button>/*recieving state object's property */
@@ -54,9 +49,23 @@ change=()=>{
 }
 
 class Board extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state= {square: Array(9).fill(null)};
+    
+    }
+    handleclick=(i)=>{
+      const square = this.state.square.slice();//creating new array to assign new value to its element to change its state
+      square[i] = "X"
+      this.setState({square:square})
+        
+        }
+
   renderSquare(i) {
    
-    return <Square value={i}/>;
+    return <Square value={this.state.square[i]} onClick=
+      {()=>this.handleclick(i)}/>;
   }
 
   render() {
