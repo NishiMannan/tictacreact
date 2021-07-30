@@ -27,19 +27,29 @@ import './App.css';
 //}
 
 
-class Square extends React.Component {
+class Square extends React.Component{
+constructor(props){
+
+super(props);
+
+}
+
   render() {
+    const val=this.props.value;
     return (
-      <button className="square">
+     
+      <button className="square" onClick={function a(){alert("You clicked") }}> 
+        {this.props.value}
         {/* TODO */}
-      </button>
+      </button>/*recieving prop object and onclick calling alert function*/
     );
   }
 }
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+   
+    return <Square value={i}/>;
   }
 
   render() {
