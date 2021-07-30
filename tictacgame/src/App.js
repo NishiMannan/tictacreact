@@ -5,47 +5,23 @@ import logo from './logo.svg';
 import './App.css';
 
 
-//function App() {
-  //return (
-    //<div className="App">
-      //<header className="App-header">
-       // <img src={logo} className="App-logo" alt="logo" />
-       // <p>
-         // Edit <code>src/App.js</code> and save to reload.
-       // </p>
-       // <a
-         // className="App-link"
-          //href="https://reactjs.org"
-          //target="_blank"
-          //rel="noopener noreferrer"
-       // >
-         // Learn React
-        //</a>
-      //</header>
-  //  </div>
- // );
-//}
 
 
-class Square extends React.Component{
-constructor(props){
-super(props);
-this.state= {x: ""};
+function Square(props)//function component 
+{
 
-}
-  render() {
-    this.val=this.props.value;
-    this.click=this.props.onClick;
+    const val=props.value;//this (used with class component)is removed
+    const click=props.onClick;
     return (
      
       <button name = ""className="square" 
-      onClick={this.click}>
-       {this.val}
+      onClick={click}>
+       {val}
        
         {/* TODO */}
       </button>/*recieving state object's property */
     );
-  }
+  
 }
 
 class Board extends React.Component {
@@ -56,9 +32,9 @@ class Board extends React.Component {
     
     }
     handleclick=(i)=>{
-      const square = this.state.square.slice();//creating new array to assign new value to its element to change its state
-      square[i] = "X"
-      this.setState({square:square})
+      const nsquare = this.state.square.slice();//creating shadow (immutation) new array to assign new value to its element to change its state
+      nsquare[i] = "X"
+      this.setState({square:nsquare})
         
         }
 
