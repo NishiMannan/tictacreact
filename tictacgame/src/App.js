@@ -15,7 +15,9 @@ function Square(props)//function component
     return (
      
       <button name = ""className="square" 
-      onClick={click}>
+      onClick={click}
+      >
+        
        {val}
        
         {/* TODO */}
@@ -23,20 +25,51 @@ function Square(props)//function component
     );
   
 }
+function calculatewinner(square)//function will return square index value if 3 consecutive or diagnal combination made and that value will decide who is the winner
+{
+const cal = [
+  [0,1,2],
+  [3,4,5], 
+  [6,7,8],
+  [0,3,6], 
+  [1,4,7], 
+  [2,5,8], 
+  [0,4,8],
+  [2,4,6]
+];
+for(let i = 0; i < cal.length; i++)
+{
+const [a, b, c] = cal[i];
+if(square[a]===square[b] && square[a]===square[c])
+{
+  return square[a];
+}
+}
+  return null;
+
+}
 
 class Board extends React.Component {
 
   constructor(props){
     super(props);
-    this.state= {square: Array(9).fill(null)};
+    this.state= {square: Array(9).fill(null),isnextturn: true};//isnextturn property added to differentiate b/w turns of players
     
     }
     handleclick=(i)=>{
       const nsquare = this.state.square.slice();//creating shadow (immutation) new array to assign new value to its element to change its state
-      nsquare[i] = "X"
-      this.setState({square:nsquare})
+      if(calculatewinner(nsquare)|| nsquare[i])//return null if square is full or button is clicked already and have value
+      {
+
+        return;
+      }
+      nsquare[i] = this.state.isnextturn ? "X" : "O";
+      this.setState({square:nsquare,
+        isnextturn:!this.state.isnextturn})
         
         }
+
+      
 
   renderSquare(i) {
    
@@ -44,8 +77,21 @@ class Board extends React.Component {
       {()=>this.handleclick(i)}/>;
   }
 
-  render() {
-    const status = 'Next player: X';
+
+
+    render() {
+    const winner=calculatewinner(this.state.square)
+
+   let status;
+    if(winner)
+    {
+      status = 'Winner is'+ winner;
+    }
+    else{
+    status = 'Next player:' + (this.state.isnextturn ? 'X' : 'O');
+
+    }
+   
 
     return (
       <div>
